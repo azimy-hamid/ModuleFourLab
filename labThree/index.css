@@ -5,3 +5,7 @@ body {
     rgba(255, 149, 0, 1) 99%
   );
 }
+
+#result {
+  background-color: #fff;
+}

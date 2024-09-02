@@ -21,6 +21,7 @@
 // - Clone the repository locally
 // - Create a branch for each feature
 
+/*
 let result = document.getElementById("result");
 
 let amount;
@@ -31,6 +32,7 @@ const resetBtn = document.getElementById("reset-btn");
 resultBtn.addEventListener("click", () => {
   let num1 = document.getElementById("num1").value;
   let num2 = document.getElementById("num2").value;
+
   let operation = document.getElementById("operations").value;
   console.log("Clicked");
   switch (operation) {
@@ -73,5 +75,10 @@ resultBtn.addEventListener("click", () => {
 });
 
 resetBtn.addEventListener("click", () => {
+  let num1 = (document.getElementById("num1").value = "");
+  let num2 = (document.getElementById("num2").value = "");
+
   result.value = "";
 });
+
+*/
