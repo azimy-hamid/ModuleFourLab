@@ -1,0 +1,9 @@
+.card-img-top {
+  height: 13rem;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 0;
+}
