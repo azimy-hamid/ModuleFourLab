@@ -45,7 +45,7 @@ function HomePage() {
     <>
       <div className="container">
         <h1 className="text-primary">All Functionalities</h1>
-        <div className="container d-flex justify-content-start align-items-center gap-2">
+        <div className="container d-flex flex-sm-column flex-md-row justify-content-start align-items-center gap-2">
           <DropDown
             productList={products}
             onCategorySelect={setSelectCategory}
