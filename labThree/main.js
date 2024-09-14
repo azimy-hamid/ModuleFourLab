@@ -21,61 +21,79 @@
 // - Clone the repository locally
 // - Create a branch for each feature
 
-let result = document.getElementById("result");
+let displayValue = "";
 
-let amount;
+function appendToDisplay(value) {
+  displayValue += value;
+  document.getElementById("display").value = displayValue;
+}
 
-const resultBtn = document.getElementById("result-btn");
-const resetBtn = document.getElementById("reset-btn");
+function clearDisplay() {
+  displayValue = "";
+  document.getElementById("display").value = "";
+}
 
-resultBtn.addEventListener("click", () => {
-  let num1 = document.getElementById("num1").value;
-  let num2 = document.getElementById("num2").value;
-
-  let operation = document.getElementById("operations").value;
-  console.log("Clicked");
-  switch (operation) {
-    case "+":
-      amount = parseInt(num1) + parseInt(num2);
-
-      if (!isNaN(amount)) {
-        result.value = amount;
-      }
-      break;
-
-    case "-":
-      amount = parseInt(num1) - parseInt(num2);
-
-      if (!isNaN(amount)) {
-        result.value = amount;
-      }
-      break;
-
-    case "*":
-      amount = parseInt(num1) * parseInt(num2);
-
-      if (!isNaN(amount)) {
-        result.value = amount;
-      }
-      break;
-
-    case "/":
-      amount = parseInt(num1) / parseInt(num2);
-
-      if (!isNaN(amount)) {
-        result.value = amount;
-      }
-      break;
-
-    default:
-      result.value = "Choose a valid operation!";
-      break;
+function calculate() {
+  try {
+    const result = evaluateExpression(displayValue);
+    displayValue = result.toString();
+    document.getElementById("display").value = displayValue;
+  } catch (error) {
+    document.getElementById("display").value = "Error";
+    displayValue = "";
   }
-});
+}
 
-resetBtn.addEventListener("click", () => {
-  let num1 = (document.getElementById("num1").value = "");
-  let num2 = (document.getElementById("num2").value = "");
+function evaluateExpression(expression) {
+  expression = expression.replace(/\s+/g, "");
 
-  result.value = "";
-});
+  const numbers = [];
+  const operators = [];
+  let currentNumber = "";
+
+  for (let i = 0; i < expression.length; i++) {
+    const char = expression[i];
+
+    if (isDigit(char) || char === ".") {
+      currentNumber += char;
+    } else if (isOperator(char)) {
+      numbers.push(parseFloat(currentNumber));
+      operators.push(char);
+      currentNumber = "";
+    }
+  }
+
+  numbers.push(parseFloat(currentNumber));
+
+  for (let i = 0; i < operators.length; i++) {
+    if (operators[i] === "*" || operators[i] === "/") {
+      const num1 = numbers[i];
+      const num2 = numbers[i + 1];
+      const result = operators[i] === "*" ? num1 * num2 : num1 / num2;
+
+      numbers.splice(i, 2, result);
+      operators.splice(i, 1);
+      i--;
+    }
+  }
+
+  for (let i = 0; i < operators.length; i++) {
+    const num1 = numbers[i];
+    const num2 = numbers[i + 1];
+    const result = operators[i] === "+" ? num1 + num2 : num1 - num2;
+
+    numbers.splice(i, 2, result);
+    operators.splice(i, 1);
+    i--;
+  }
+
+  return numbers[0];
+}
+
+function isDigit(char) {
+  return /\d/.test(char);
+}
+
+function isOperator(char) {
+  return ["+", "-", "*", "/"].includes(char);
+}
