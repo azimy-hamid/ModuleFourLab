@@ -21,7 +21,6 @@
 // - Clone the repository locally
 // - Create a branch for each feature
 
-/*
 let result = document.getElementById("result");
 
 let amount;
@@ -80,5 +79,3 @@ resetBtn.addEventListener("click", () => {
 
   result.value = "";
 });
-
-*/
