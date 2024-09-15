@@ -97,3 +97,5 @@ function isDigit(char) {
 function isOperator(char) {
   return ["+", "-", "*", "/"].includes(char);
 }
+
+console.log(displayValue);
